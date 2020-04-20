@@ -178,6 +178,7 @@
             this.btnGenerate.TabIndex = 7;
             this.btnGenerate.Text = "Generar";
             this.btnGenerate.UseVisualStyleBackColor = true;
+            this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
             // 
             // tableLayoutPanel3
             // 
