@@ -13,10 +13,10 @@ namespace RandomVarGenerator
 
         public Generator congruentialGenerator = new Generator() { a = 71561, c= 56822, seed= 31767, M= 341157 };
 
-        public decimal Generate()
+        public double Generate()
         {
-            double rnd = Convert.ToDouble(congruentialGenerator.NextRnd());
-            decimal num = Convert.ToDecimal((-1 / this.lambda) * Math.Log(1 - rnd));
+            double rnd = congruentialGenerator.NextRnd();
+            double num = (-1 / this.lambda) * Math.Log(1 - rnd);
             return num;
         }
     }

@@ -206,7 +206,8 @@
             "Uniforme",
             "Poisson",
             "Exponencial",
-            "Normal"});
+            "Normal - Box Muller",
+            "Normal - Convolucion"});
             this.cmbDistribution.Location = new System.Drawing.Point(121, 46);
             this.cmbDistribution.Name = "cmbDistribution";
             this.cmbDistribution.Size = new System.Drawing.Size(155, 21);

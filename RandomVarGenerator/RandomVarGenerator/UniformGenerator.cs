@@ -13,9 +13,9 @@ namespace RandomVarGenerator
         public int b { get; set; }
         public Generator congruentialGenerator = new Generator() { seed = 31767, a = 71561, c = 56822, M = 341157 };
 
-        public decimal Generate()
+        public double Generate()
         {
-            decimal rnd = a + congruentialGenerator.NextRnd() * (b - a);
+            double rnd = a + congruentialGenerator.NextRnd() * (b - a);
             return rnd;
         }
     }

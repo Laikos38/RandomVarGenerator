@@ -8,21 +8,21 @@ namespace GeneradorDeNumerosAleatorios
 {
     class Intervalo
     {
-        decimal limSup = 0;
-        decimal limInf = 0;
+        double limSup = 0;
+        double limInf = 0;
         int acumulador;
 
-        public decimal LimSup { get => limSup; set => limSup = value; }
-        public decimal LimInf { get => limInf; set => limInf = value; }
+        public double LimSup { get => limSup; set => limSup = value; }
+        public double LimInf { get => limInf; set => limInf = value; }
         public int contador { get => acumulador; set => acumulador = value; }
 
-        public Intervalo(decimal lI, decimal lS)
+        public Intervalo(double lI, double lS)
         {
             this.limInf = lI;
             this.limSup = lS;
         }
 
-        public bool belongsToMe(decimal num)
+        public bool belongsToMe(double num)
         {
             return (LimInf <= num) && (num <= LimSup);
         }

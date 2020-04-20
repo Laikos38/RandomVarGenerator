@@ -12,7 +12,7 @@ namespace RandomVarGenerator
 {
     public partial class Form1 : Form
     {
-        public List<decimal> generatedList = new List<decimal>();
+        public List<double> generatedList = new List<double>();
 
         public Form1()
         {
@@ -72,50 +72,90 @@ namespace RandomVarGenerator
         private void btnGenerate_Click(object sender, EventArgs e)
         {
 
-            // ====================
-            // Agregar validaciones
-            //=====================
-            int quantity = Convert.ToInt32(this.txtQuantity.Text);
-           
+            if (!String.IsNullOrEmpty(txtQuantity.Text) && txtQuantity.Text != "0")
+            {
+                int quantity = Convert.ToInt32(this.txtQuantity.Text);
+
+                if ((string)this.cmbDistribution.SelectedItem == "Uniforme")
+                {
+                    if (!String.IsNullOrEmpty(txtInput1.Text) && !String.IsNullOrEmpty(txtInput2.Text))
+                    {
+
+                        int a = Convert.ToInt32(this.txtInput1.Text);
+                        int b = Convert.ToInt32(this.txtInput2.Text);
+
+                        if (b > a)
+                        {
+                            UniformGenerator uniformGenerator = new UniformGenerator() { a = a, b = b };
+
+                            StringBuilder numbersList = new StringBuilder();
+
+                            for (int i = 0; i < quantity; i++)
+                            {
+                                double rnd = uniformGenerator.Generate();
+                                rnd = (Math.Truncate(rnd * 10000) / 10000);
+                                generatedList.Add(rnd);
+                                numbersList.Append((i + 1) + ")\t" + rnd + Environment.NewLine);
+                            }
+
+                            this.txtGeneratedList.Text = numbersList.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error: El campo B debe ser mayor al campo A", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error: Los campos A y B deben tener un valor correcto", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
+                else if ((string)this.cmbDistribution.SelectedItem == "Exponencial")
+                {
+
+                    if (!String.IsNullOrEmpty(txtLambda.Text))
+                    {
+                        double lambda = Convert.ToDouble(this.txtLambda.Text);
+
+                        ExponentialGenerator exponentialGenerator = new ExponentialGenerator() { lambda = lambda };
+
+                        StringBuilder expNumbers = new StringBuilder();
+
+                        for (int i = 0; i < quantity; i++)
+                        {
+                            double expRnd = exponentialGenerator.Generate();
+                            expRnd = (Math.Truncate(expRnd * 10000) / 10000);
+                            generatedList.Add(expRnd);
+                            expNumbers.Append((i + 1) + ")\t" + expRnd + Environment.NewLine);
+                        }
+
+                        this.txtGeneratedList.Text = expNumbers.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error: Debe ingresar un valor en el campo lambda", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else if ((string)this.cmbDistribution.SelectedItem == "Normal - Box Muller")
+                {
+                    if (!String.IsNullOrEmpty(txtInput1.Text) && !String.IsNullOrEmpty(txtInput2.Text))
+                    {
+                        MessageBox.Show("Aca va lo del amarillo");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error: Los campos Media y Desviacion deben tener un valor correcto", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }   
+            }
+            else
+            {
+                MessageBox.Show("Error: Debe ingresar una cantidad correcta", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             
-
-            if ((string)this.cmbDistribution.SelectedItem == "Uniforme")
-            {
-                int a = Convert.ToInt32(this.txtInput1.Text);
-                int b = Convert.ToInt32(this.txtInput2.Text);
-
-                UniformGenerator uniformGenerator = new UniformGenerator() { a=a, b=b };
-                
-                StringBuilder numbersList = new StringBuilder();
-
-                for (int i = 0; i < quantity; i++)
-                {
-                    decimal rnd = uniformGenerator.Generate();
-                    rnd = (Math.Truncate(rnd * 10000) / 10000);
-                    generatedList.Add(rnd);
-                    numbersList.Append((i + 1) + ")\t" + rnd + Environment.NewLine);
-                }
-
-                this.txtGeneratedList.Text = numbersList.ToString();
-            }
-            else if ((string)this.cmbDistribution.SelectedItem == "Exponencial")
-            {
-                double lambda = Convert.ToDouble(this.txtLambda.Text);
-
-                ExponentialGenerator exponentialGenerator = new ExponentialGenerator() { lambda=lambda };
-
-                StringBuilder expNumbers = new StringBuilder();
-
-                for (int i = 0; i < quantity; i++)
-                {
-                    decimal expRnd = exponentialGenerator.Generate();
-                    expRnd = (Math.Truncate(expRnd * 10000) / 10000);
-                    generatedList.Add(expRnd);
-                    expNumbers.Append((i + 1) + ")\t" + expRnd + Environment.NewLine);
-                }
-
-                this.txtGeneratedList.Text = expNumbers.ToString();
-            }
         }
+
     }
 }
