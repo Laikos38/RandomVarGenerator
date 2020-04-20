@@ -76,11 +76,14 @@ namespace RandomVarGenerator
             // Agregar validaciones
             //=====================
             int quantity = Convert.ToInt32(this.txtQuantity.Text);
-            int a = Convert.ToInt32(this.txtInput1.Text);
-            int b = Convert.ToInt32(this.txtInput2.Text);
+           
+            
 
             if ((string)this.cmbDistribution.SelectedItem == "Uniforme")
             {
+                int a = Convert.ToInt32(this.txtInput1.Text);
+                int b = Convert.ToInt32(this.txtInput2.Text);
+
                 UniformGenerator uniformGenerator = new UniformGenerator() { a=a, b=b };
                 
                 StringBuilder numbersList = new StringBuilder();
@@ -94,6 +97,24 @@ namespace RandomVarGenerator
                 }
 
                 this.txtGeneratedList.Text = numbersList.ToString();
+            }
+            else if ((string)this.cmbDistribution.SelectedItem == "Exponencial")
+            {
+                double lambda = Convert.ToDouble(this.txtLambda.Text);
+
+                ExponentialGenerator exponentialGenerator = new ExponentialGenerator() { lambda=lambda };
+
+                StringBuilder expNumbers = new StringBuilder();
+
+                for (int i = 0; i < quantity; i++)
+                {
+                    decimal expRnd = exponentialGenerator.Generate();
+                    expRnd = (Math.Truncate(expRnd * 10000) / 10000);
+                    generatedList.Add(expRnd);
+                    expNumbers.Append((i + 1) + ")\t" + expRnd + Environment.NewLine);
+                }
+
+                this.txtGeneratedList.Text = expNumbers.ToString();
             }
         }
     }

@@ -9,7 +9,7 @@ namespace RandomVarGenerator
 {
     class ExponentialGenerator
     {
-        public float lambda { get; set; }
+        public double lambda { get; set; }
 
         public Generator congruentialGenerator = new Generator() { a = 71561, c= 56822, seed= 31767, M= 341157 };
 
