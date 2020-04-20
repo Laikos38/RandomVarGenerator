@@ -12,6 +12,8 @@ namespace RandomVarGenerator
 {
     public partial class Form1 : Form
     {
+        public List<decimal> generatedList = new List<decimal>();
+
         public Form1()
         {
             InitializeComponent();
@@ -65,6 +67,34 @@ namespace RandomVarGenerator
             this.txtLambda.Text = "";
             this.cmbDistribution.SelectedIndex = 0;
             this.cmbIntervalsQuantity.SelectedIndex = 0;
+        }
+
+        private void btnGenerate_Click(object sender, EventArgs e)
+        {
+
+            // ====================
+            // Agregar validaciones
+            //=====================
+            int quantity = Convert.ToInt32(this.txtQuantity.Text);
+            int a = Convert.ToInt32(this.txtInput1.Text);
+            int b = Convert.ToInt32(this.txtInput2.Text);
+
+            if ((string)this.cmbDistribution.SelectedItem == "Uniforme")
+            {
+                UniformGenerator uniformGenerator = new UniformGenerator() { a=a, b=b };
+                
+                StringBuilder numbersList = new StringBuilder();
+
+                for (int i = 0; i < quantity; i++)
+                {
+                    decimal rnd = uniformGenerator.Generate();
+                    rnd = (Math.Truncate(rnd * 10000) / 10000);
+                    generatedList.Add(rnd);
+                    numbersList.Append((i + 1) + ")\t" + rnd + Environment.NewLine);
+                }
+
+                this.txtGeneratedList.Text = numbersList.ToString();
+            }
         }
     }
 }
