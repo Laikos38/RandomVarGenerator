@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeneradorDeNumerosAleatorios;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -75,7 +76,9 @@ namespace RandomVarGenerator
             // ====================
             // Agregar validaciones
             //=====================
+
             int quantity = Convert.ToInt32(this.txtQuantity.Text);
+            int subInt = Convert.ToInt32(this.cmbIntervalsQuantity.Text);
             int a = Convert.ToInt32(this.txtInput1.Text);
             int b = Convert.ToInt32(this.txtInput2.Text);
 
@@ -94,6 +97,26 @@ namespace RandomVarGenerator
                 }
 
                 this.txtGeneratedList.Text = numbersList.ToString();
+            }
+
+            ChiCuadrado chi2 = new ChiCuadrado();
+            Intervalo[] intervals = new Intervalo[subInt];
+            intervals = chi2.getFrequencies(generatedList, subInt);
+            GenerateGraphicAndChiTable(intervals);
+        }
+
+
+        private void GenerateGraphicAndChiTable(Intervalo[] intervals)
+        {
+            this.chartFreq.Series["Freq observada"].Points.Clear();
+            foreach (Intervalo interval in intervals)
+            {
+                string intervalStr = interval.ToString();
+                // Agrego points de grafico de frecuencia observada
+                this.chartFreq.Series["Freq observada"].Points.AddXY(
+                    intervalStr,
+                    interval.contador
+                    );
             }
         }
     }

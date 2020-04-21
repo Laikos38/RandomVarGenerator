@@ -14,15 +14,16 @@ namespace GeneradorDeNumerosAleatorios
 
         public Intervalo[] getFrequencies(List<decimal> serie, int k)
         {
-            if ((serie.Count / k) < 5 && k > 1) k /= 2; //Para distribución uniforme
+            //if ((serie.Count / k) < 5 && k > 1) k /= 2; //Para distribución uniforme
 
             Intervalo[] intervalos = new Intervalo[k];
-            double acum = 0;
+            double acum = (double) serie.Min();
+            double aux = (double) serie.Max() - acum;
             for (int j = 0; j < k; j++)
             {
                 intervalos[j] = new Intervalo(0, 0);
                 intervalos[j].LimInf = (decimal) acum;
-                acum += (double) 1/k;
+                acum += (double) aux/k;
                 intervalos[j].LimSup = (decimal) acum;                
             }
 

@@ -34,7 +34,7 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartFreq = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.gbParameters = new System.Windows.Forms.GroupBox();
             this.btnClean = new System.Windows.Forms.Button();
             this.btnGenerate = new System.Windows.Forms.Button();
@@ -72,7 +72,7 @@
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartFreq)).BeginInit();
             this.gbParameters.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -113,7 +113,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.chart1);
+            this.groupBox1.Controls.Add(this.chartFreq);
             this.groupBox1.Location = new System.Drawing.Point(167, 183);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(839, 347);
@@ -121,24 +121,25 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Gráfico";
             // 
-            // chart1
+            // chartFreq
             // 
-            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.chartFreq.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            this.chartFreq.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(7, 42);
-            this.chart1.Name = "chart1";
+            this.chartFreq.Legends.Add(legend1);
+            this.chartFreq.Location = new System.Drawing.Point(7, 42);
+            this.chartFreq.Name = "chartFreq";
+            this.chartFreq.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(826, 299);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
+            series1.Name = "Freq observada";
+            this.chartFreq.Series.Add(series1);
+            this.chartFreq.Size = new System.Drawing.Size(826, 299);
+            this.chartFreq.TabIndex = 0;
+            this.chartFreq.Text = "chart1";
             // 
             // gbParameters
             // 
@@ -516,7 +517,7 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartFreq)).EndInit();
             this.gbParameters.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
@@ -547,7 +548,6 @@
         private System.Windows.Forms.TextBox txtQuantity;
         private System.Windows.Forms.ComboBox cmbIntervalsQuantity;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label lblDistribution;
         private System.Windows.Forms.TextBox txtLambda;
@@ -571,6 +571,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colOperation1;
         private System.Windows.Forms.DataGridViewTextBoxColumn colOperation2;
         private System.Windows.Forms.DataGridViewTextBoxColumn colSum;
+        protected System.Windows.Forms.DataVisualization.Charting.Chart chartFreq;
     }
 }
 
