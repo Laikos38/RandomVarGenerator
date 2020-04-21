@@ -142,7 +142,31 @@ namespace RandomVarGenerator
                 {
                     if (!String.IsNullOrEmpty(txtInput1.Text) && !String.IsNullOrEmpty(txtInput2.Text))
                     {
-                        MessageBox.Show("Aca va lo del amarillo");
+                        double mean = Convert.ToDouble(this.txtInput1.Text);
+                        double stDeviation = Convert.ToDouble(this.txtInput2.Text);
+
+                        BoxMullerGenerator boxMullerGenerator = new BoxMullerGenerator() { mean=mean, stDeviation=stDeviation };
+
+                        StringBuilder boxNumbers = new StringBuilder();
+
+                        for (int i = 0; i < quantity; i++)
+                        {
+                            double[] boxRnd = boxMullerGenerator.Generate();
+                            if(i % 2 == 0)
+                            {
+                                boxRnd[0] = (Math.Truncate(boxRnd[0] * 10000) / 10000);
+                                generatedList.Add(boxRnd[0]);
+                                boxNumbers.Append((i + 1) + ")\t" + boxRnd[0] + Environment.NewLine);
+                            }
+                            else
+                            {
+                                boxRnd[1] = (Math.Truncate(boxRnd[1] * 10000) / 10000);
+                                generatedList.Add(boxRnd[1]);
+                                boxNumbers.Append((i + 1) + ")\t" + boxRnd[1] + Environment.NewLine);
+                            }
+                        }
+
+                        this.txtGeneratedList.Text = boxNumbers.ToString();
                     }
                     else
                     {

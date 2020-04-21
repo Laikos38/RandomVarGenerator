@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoxMullerGenerator.cs" />
     <Compile Include="ChiCuadrado.cs" />
     <Compile Include="ExponentialGenerator.cs" />
     <Compile Include="Form1.cs">
@@ -56,6 +57,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Generator.cs" />
+    <Compile Include="GeneratorsI.cs" />
     <Compile Include="Intervalo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
