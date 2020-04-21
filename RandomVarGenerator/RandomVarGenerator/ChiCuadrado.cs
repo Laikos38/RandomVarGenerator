@@ -12,7 +12,7 @@ namespace GeneradorDeNumerosAleatorios
         {
         }
 
-        public Intervalo[] getFrequencies(List<decimal> serie, int k)
+        public Intervalo[] getFrequencies(List<double> serie, int k)
         {
             if ((serie.Count / k) < 5 && k > 1) k /= 2; //Para distribución uniforme
 
@@ -21,9 +21,9 @@ namespace GeneradorDeNumerosAleatorios
             for (int j = 0; j < k; j++)
             {
                 intervalos[j] = new Intervalo(0, 0);
-                intervalos[j].LimInf = (decimal) acum;
+                intervalos[j].LimInf = (double) acum;
                 acum += (double) 1/k;
-                intervalos[j].LimSup = (decimal) acum;                
+                intervalos[j].LimSup = (double) acum;                
             }
 
             int n = serie.Count;
