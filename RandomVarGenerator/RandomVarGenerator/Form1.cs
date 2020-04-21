@@ -84,7 +84,9 @@ namespace RandomVarGenerator
         {
             StringBuilder numbersList = new StringBuilder();
             int subInt = Convert.ToInt32(this.cmbIntervalsQuantity.Text);
-            
+            generatedList.Clear();
+
+
             if (String.IsNullOrEmpty(txtQuantity.Text) || txtQuantity.Text == "0")
             {
                 MessageBox.Show("Error: Debe ingresar una cantidad correcta", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);

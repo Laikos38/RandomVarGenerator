@@ -373,6 +373,7 @@
             this.txtGeneratedList.Multiline = true;
             this.txtGeneratedList.Name = "txtGeneratedList";
             this.txtGeneratedList.ReadOnly = true;
+            this.txtGeneratedList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtGeneratedList.Size = new System.Drawing.Size(154, 507);
             this.txtGeneratedList.TabIndex = 0;
             this.txtGeneratedList.WordWrap = false;
