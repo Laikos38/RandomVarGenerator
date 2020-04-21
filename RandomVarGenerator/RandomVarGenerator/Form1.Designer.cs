@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -126,17 +126,17 @@
             this.chartFreq.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Name = "ChartArea1";
-            this.chartFreq.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartFreq.Legends.Add(legend1);
+            chartArea4.Name = "ChartArea1";
+            this.chartFreq.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chartFreq.Legends.Add(legend4);
             this.chartFreq.Location = new System.Drawing.Point(7, 42);
             this.chartFreq.Name = "chartFreq";
             this.chartFreq.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Freq observada";
-            this.chartFreq.Series.Add(series1);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Freq observada";
+            this.chartFreq.Series.Add(series4);
             this.chartFreq.Size = new System.Drawing.Size(826, 299);
             this.chartFreq.TabIndex = 0;
             this.chartFreq.Text = "chart1";
@@ -231,7 +231,7 @@
             this.txtLambda.Name = "txtLambda";
             this.txtLambda.Size = new System.Drawing.Size(155, 20);
             this.txtLambda.TabIndex = 1;
-            this.txtLambda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
+            this.txtLambda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowNegativeIntegerNumbers);
             // 
             // lblLambda
             // 
@@ -277,7 +277,7 @@
             this.txtInput1.Name = "txtInput1";
             this.txtInput1.Size = new System.Drawing.Size(121, 20);
             this.txtInput1.TabIndex = 1;
-            this.txtInput1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
+            this.txtInput1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowNegativeIntegerNumbers);
             // 
             // txtInput2
             // 
@@ -285,7 +285,7 @@
             this.txtInput2.Name = "txtInput2";
             this.txtInput2.Size = new System.Drawing.Size(121, 20);
             this.txtInput2.TabIndex = 3;
-            this.txtInput2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
+            this.txtInput2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowNegativeIntegerNumbers);
             // 
             // lblInput1
             // 
@@ -341,7 +341,7 @@
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(136, 20);
             this.txtQuantity.TabIndex = 1;
-            this.txtQuantity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
+            this.txtQuantity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowPositiveIntegerNumbers);
             // 
             // cmbIntervalsQuantity
             // 

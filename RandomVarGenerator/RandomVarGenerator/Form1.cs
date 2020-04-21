@@ -22,10 +22,24 @@ namespace RandomVarGenerator
             this.cmbIntervalsQuantity.SelectedIndex = 0;
         }
 
-        // Metodo para permitir solo el ingreso de numeros en los textInputs
-        private void textBox_KeyPress(object sender, KeyPressEventArgs e)
+        // Metodo para permitir solo el ingreso de numeros positivos en los textInputs
+        private void AllowPositiveIntegerNumbers(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        // Metodo para permitir solo el ingreso de numeros reales en los textInputs
+        private void AllowNegativeIntegerNumbers(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+                (e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+            if ((e.KeyChar == '-') && ((sender as TextBox).Text.IndexOf('-') > -1))
             {
                 e.Handled = true;
             }
@@ -173,6 +187,11 @@ namespace RandomVarGenerator
                     if (String.IsNullOrEmpty(txtLambda.Text))
                     {
                         MessageBox.Show("Error: Debe ingresar un valor en el campo lambda", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    if (Convert.ToInt32(this.txtLambda.Text) == 0)
+                    {
+                        MessageBox.Show("Error: Lambda debe ser distinto a cero.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     break;
