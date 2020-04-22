@@ -58,7 +58,7 @@ namespace RandomVarGenerator
                 this.txtLambda.Text = "";
                 this.txtLambda.Enabled = false;
             }
-            else if (this.cmbDistribution.SelectedIndex == 1 || this.cmbDistribution.SelectedIndex == 2)
+            else if (this.cmbDistribution.SelectedIndex == 2 || this.cmbDistribution.SelectedIndex == 1)
             {
                 this.lblInput1.Text = "A:";
                 this.lblInput2.Text = "B:";
@@ -69,6 +69,7 @@ namespace RandomVarGenerator
                 this.txtInput2.Enabled = false;
                 this.txtLambda.Enabled = true;
             }
+
             else if (this.cmbDistribution.SelectedIndex == 3)
             {
                 this.lblInput1.Text = "Media:";
@@ -97,7 +98,7 @@ namespace RandomVarGenerator
         private void btnGenerate_Click(object sender, EventArgs e)
         {
             if (!ValidateInputs())
-                return;
+               return;
 
             generatedList.Clear();
             StringBuilder numbersList = new StringBuilder();
@@ -153,6 +154,19 @@ namespace RandomVarGenerator
                     }
                 }
             }
+            else if ((string)this.cmbDistribution.SelectedItem == "Poisson")
+            {
+                double lambda = Convert.ToDouble(this.txtLambda.Text);
+                PoissonGenerator poissonGenerator = new PoissonGenerator() { lambda = lambda };
+                for (int i = 0; i < quantity; i++)
+                {
+                    double expRnd = poissonGenerator.Generate();
+                    generatedList.Add(expRnd);
+                    numbersList.Append((i + 1) + ")\t" + expRnd + Environment.NewLine);
+                }
+
+            }
+
 
             this.txtGeneratedList.Text = numbersList.ToString();
             ChiCuadrado chi2 = new ChiCuadrado();
@@ -199,6 +213,18 @@ namespace RandomVarGenerator
                     if (String.IsNullOrEmpty(txtInput1.Text) || String.IsNullOrEmpty(txtInput2.Text))
                     {
                         MessageBox.Show("Error: Los campos Media y Desviacion deben tener un valor correcto", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    break;
+                case "Poisson":
+                    if (String.IsNullOrEmpty(txtLambda.Text))
+                    {
+                        MessageBox.Show("Error: Debe ingresar un valor en el campo lambda", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    if (Convert.ToInt32(this.txtLambda.Text) == 0)
+                    {
+                        MessageBox.Show("Error: Lambda debe ser distinto a cero.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     break;
