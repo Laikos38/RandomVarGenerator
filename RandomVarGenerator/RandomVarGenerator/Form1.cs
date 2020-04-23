@@ -172,9 +172,9 @@ namespace RandomVarGenerator
                         numbersList.Append((i + 1) + ")\t" + boxRnd[1] + Environment.NewLine);
                     }
                 }
+
                 intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
                 intervals = boxMullerGenerator.getExpectedFrequencies(quantity, intervals);
-
             }
 
             else if ((string)this.cmbDistribution.SelectedItem == "Normal - Convolucion")
@@ -190,6 +190,9 @@ namespace RandomVarGenerator
                     generatedList.Add(convRnd);
                     numbersList.Append((i + 1) + ")\t" + convRnd + Environment.NewLine);
                 }
+
+                intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
+                intervals = convolutionGenerator.getExpectedFrequencies(quantity, intervals);
             }
             else if ((string)this.cmbDistribution.SelectedItem == "Poisson")
             {
@@ -201,7 +204,6 @@ namespace RandomVarGenerator
                     generatedList.Add(poissonRnd);
                     numbersList.Append((i + 1) + ")\t" + poissonRnd + Environment.NewLine);
                 }
-
             }
 
 
