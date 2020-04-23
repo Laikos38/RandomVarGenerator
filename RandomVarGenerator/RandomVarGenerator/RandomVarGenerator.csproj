@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="BoxMullerGenerator.cs" />
     <Compile Include="ChiCuadrado.cs" />
+    <Compile Include="ConvolutionGenerator.cs" />
     <Compile Include="ExponentialGenerator.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
