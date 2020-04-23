@@ -98,6 +98,7 @@ namespace RandomVarGenerator
             this.cmbDistribution.SelectedIndex = 0;
             this.cmbIntervalsQuantity.SelectedIndex = 0;
             this.chartFreq.Series["Freq observada"].Points.Clear();
+            this.chartFreq.Series["Freq esperada"].Points.Clear();
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -273,8 +274,13 @@ namespace RandomVarGenerator
         private void GenerateGraphicAndChiTable(Intervalo[] intervals)
         {
             this.chartFreq.Series["Freq observada"].Points.Clear();
+            double sum = 0;
+
             foreach (Intervalo interval in intervals)
             {
+                double col4 = Math.Round(Math.Pow(interval.contador - interval.expectedCount, 2), 4);
+                double col5 = Math.Round(col4 / interval.expectedCount, 4);
+                sum += col5;
                 string intervalStr = interval.ToString();
                 // Agrego points de grafico de frecuencia observada
                 this.chartFreq.Series["Freq observada"].Points.AddXY(
@@ -282,6 +288,14 @@ namespace RandomVarGenerator
                     interval.contador
                     );
                 this.chartFreq.Series["Freq esperada"].Points.Add(interval.expectedCount);
+                this.dgvChi.Rows.Add(
+                    intervalStr,
+                    interval.contador,
+                    interval.expectedCount,
+                    col4,
+                    col5,
+                    sum
+                    );
             }
         }
     }
