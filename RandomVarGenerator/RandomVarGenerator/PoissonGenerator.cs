@@ -18,12 +18,12 @@ namespace RandomVarGenerator
             double x = -1;
             double p = 1;
             double a = Math.Exp(-lambda);
-            while (p >= a)
+            do
             {
                 double u = congruentialGenerator.NextRnd();
                 p = p * u;
                 x = x + 1;
-            }
+            } while (p >= a);
             return x;
         }
     }

@@ -160,9 +160,9 @@ namespace RandomVarGenerator
                 PoissonGenerator poissonGenerator = new PoissonGenerator() { lambda = lambda };
                 for (int i = 0; i < quantity; i++)
                 {
-                    double expRnd = poissonGenerator.Generate();
-                    generatedList.Add(expRnd);
-                    numbersList.Append((i + 1) + ")\t" + expRnd + Environment.NewLine);
+                    double rnd = poissonGenerator.Generate();
+                    generatedList.Add(rnd);
+                    numbersList.Append((i + 1) + ")\t" + rnd + Environment.NewLine);
                 }
 
             }
