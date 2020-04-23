@@ -132,6 +132,7 @@ namespace RandomVarGenerator
                     numbersList.Append((i + 1) + ")\t" + expRnd + Environment.NewLine);
                 }
             }
+
             else if ((string)this.cmbDistribution.SelectedItem == "Normal - Box Muller")
             {
                 double mean = Convert.ToDouble(this.txtInput1.Text);
@@ -154,6 +155,7 @@ namespace RandomVarGenerator
                     }
                 }
             }
+
             else if ((string)this.cmbDistribution.SelectedItem == "Poisson")
             {
                 double lambda = Convert.ToDouble(this.txtLambda.Text);
