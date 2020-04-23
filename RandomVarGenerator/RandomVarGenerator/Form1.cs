@@ -35,7 +35,7 @@ namespace RandomVarGenerator
         private void AllowNegativeIntegerNumbers(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-                (e.KeyChar != '-'))
+                (e.KeyChar != '-') && (e.KeyChar != ','))
             {
                 e.Handled = true;
             }
@@ -43,6 +43,11 @@ namespace RandomVarGenerator
             {
                 e.Handled = true;
             }
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
+            {
+                e.Handled = true;
+            }
+
         }
 
         private void cmbDistribution_SelectedIndexChanged(object sender, EventArgs e)
@@ -107,8 +112,8 @@ namespace RandomVarGenerator
 
             if ((string)this.cmbDistribution.SelectedItem == "Uniforme")
             {
-                int a = Convert.ToInt32(this.txtInput1.Text);
-                int b = Convert.ToInt32(this.txtInput2.Text);
+                double a = Convert.ToDouble(this.txtInput1.Text);
+                double b = Convert.ToDouble(this.txtInput2.Text);
 
                 UniformGenerator uniformGenerator = new UniformGenerator() { a = a, b = b };
                 for (int i = 0; i < quantity; i++)
@@ -191,7 +196,7 @@ namespace RandomVarGenerator
                         MessageBox.Show("Error: Los campos A y B deben tener un valor correcto", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
-                    if (Convert.ToInt32(this.txtInput2.Text) < Convert.ToInt32(this.txtInput1.Text))
+                    if (Convert.ToDouble(this.txtInput2.Text) < Convert.ToDouble(this.txtInput1.Text))
                     {
                         MessageBox.Show("Error: El campo B debe ser mayor al campo A", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
@@ -203,7 +208,7 @@ namespace RandomVarGenerator
                         MessageBox.Show("Error: Debe ingresar un valor en el campo lambda", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
-                    if (Convert.ToInt32(this.txtLambda.Text) == 0)
+                    if (Convert.ToDouble(this.txtLambda.Text) == 0)
                     {
                         MessageBox.Show("Error: Lambda debe ser distinto a cero.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
@@ -222,7 +227,7 @@ namespace RandomVarGenerator
                         MessageBox.Show("Error: Debe ingresar un valor en el campo lambda", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
-                    if (Convert.ToInt32(this.txtLambda.Text) == 0)
+                    if (Convert.ToDouble(this.txtLambda.Text) == 0)
                     {
                         MessageBox.Show("Error: Lambda debe ser distinto a cero.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
