@@ -106,6 +106,9 @@ namespace RandomVarGenerator
             if (!ValidateInputs())
                return;
 
+            this.chartFreq.Series["Freq observada"].Points.Clear();
+            this.chartFreq.Series["Freq esperada"].Points.Clear();
+
             int subInt = Convert.ToInt32(this.cmbIntervalsQuantity.Text);
             int quantity = Convert.ToInt32(this.txtQuantity.Text);
 
@@ -143,6 +146,9 @@ namespace RandomVarGenerator
                     generatedList.Add(expRnd);
                     numbersList.Append((i + 1) + ")\t" + expRnd + Environment.NewLine);
                 }
+
+                intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
+                intervals = exponentialGenerator.getExpectedFrequencies(intervals, quantity);
             }
 
             else if ((string)this.cmbDistribution.SelectedItem == "Normal - Box Muller")
