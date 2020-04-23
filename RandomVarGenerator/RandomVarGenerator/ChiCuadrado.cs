@@ -12,8 +12,13 @@ namespace GeneradorDeNumerosAleatorios
         {
         }
 
-        public Intervalo[] getFrequencies(List<double> serie, int k)
+        public Intervalo[] getFrequencies(List<double> serie, int k, int idxDist)
         {
+            if (idxDist == 0)
+            {
+               while ((serie.Count / k) < 5 && k > 1) k /= 2;
+            }
+
             Intervalo[] intervalos = new Intervalo[k];
             double acum = serie.Min();
             double width = (serie.Max() - serie.Min()) / (double)k;

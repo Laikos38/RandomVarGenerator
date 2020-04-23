@@ -26,5 +26,8 @@ namespace RandomVarGenerator
 
             return rnd;
         }
+
+       // public Intervalo[] getExpectedFrequencies()
+       
     }
 }

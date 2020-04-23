@@ -127,8 +127,8 @@ namespace RandomVarGenerator
                     numbersList.Append((i + 1) + ")\t" + rnd + Environment.NewLine);
                 }
                 
-                intervals = chi2.getFrequencies(generatedList, subInt);
-                intervals = uniformGenerator.getExpectedFrequencies(this.cmbDistribution.SelectedIndex, intervals, quantity);
+                intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
+                intervals = uniformGenerator.getExpectedFrequencies(intervals, quantity);
             }
 
             else if ((string)this.cmbDistribution.SelectedItem == "Exponencial")
@@ -165,6 +165,9 @@ namespace RandomVarGenerator
                         numbersList.Append((i + 1) + ")\t" + boxRnd[1] + Environment.NewLine);
                     }
                 }
+                intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
+                intervals = boxMullerGenerator.getExpectedFrequencies(quantity, intervals);
+
             }
 
             else if ((string)this.cmbDistribution.SelectedItem == "Normal - Convolucion")
