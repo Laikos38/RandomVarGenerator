@@ -70,7 +70,7 @@ namespace RandomVarGenerator
                 this.txtLambda.Enabled = true;
             }
 
-            else if (this.cmbDistribution.SelectedIndex == 3)
+            else if (this.cmbDistribution.SelectedIndex == 3 || this.cmbDistribution.SelectedIndex == 4)
             {
                 this.lblInput1.Text = "Media:";
                 this.lblInput2.Text = "Desviación";
@@ -137,11 +137,11 @@ namespace RandomVarGenerator
             {
                 double mean = Convert.ToDouble(this.txtInput1.Text);
                 double stDeviation = Convert.ToDouble(this.txtInput2.Text);
-                BoxMullerGenerator boxMullerGenerator = new BoxMullerGenerator() { mean=mean, stDeviation=stDeviation };
+                BoxMullerGenerator boxMullerGenerator = new BoxMullerGenerator() { mean = mean, stDeviation = stDeviation };
                 for (int i = 0; i < quantity; i++)
                 {
                     double[] boxRnd = boxMullerGenerator.Generate();
-                    if(i % 2 == 0)
+                    if (i % 2 == 0)
                     {
                         boxRnd[0] = (Math.Truncate(boxRnd[0] * 10000) / 10000);
                         generatedList.Add(boxRnd[0]);
@@ -156,15 +156,29 @@ namespace RandomVarGenerator
                 }
             }
 
+            else if ((string)this.cmbDistribution.SelectedItem == "Normal - Convolucion")
+            {
+                double mean = Convert.ToDouble(this.txtInput1.Text);
+                double stDeviation = Convert.ToDouble(this.txtInput2.Text);
+                ConvolutionGenerator convolutionGenerator = new ConvolutionGenerator() { mean = mean, stDeviation = stDeviation };
+
+                for (int i = 0; i < quantity; i++)
+                {
+                    double convRnd = convolutionGenerator.Generate();
+                    convRnd = (Math.Truncate(convRnd * 10000) / 10000);
+                    generatedList.Add(convRnd);
+                    numbersList.Append((i + 1) + ")\t" + convRnd + Environment.NewLine);
+                }
+            }
             else if ((string)this.cmbDistribution.SelectedItem == "Poisson")
             {
                 double lambda = Convert.ToDouble(this.txtLambda.Text);
                 PoissonGenerator poissonGenerator = new PoissonGenerator() { lambda = lambda };
                 for (int i = 0; i < quantity; i++)
                 {
-                    double rnd = poissonGenerator.Generate();
-                    generatedList.Add(rnd);
-                    numbersList.Append((i + 1) + ")\t" + rnd + Environment.NewLine);
+                    double poissonRnd = poissonGenerator.Generate();
+                    generatedList.Add(poissonRnd);
+                    numbersList.Append((i + 1) + ")\t" + poissonRnd + Environment.NewLine);
                 }
 
             }
@@ -212,6 +226,13 @@ namespace RandomVarGenerator
                     }
                     break;
                 case "Normal - Box Muller":
+                    if (String.IsNullOrEmpty(txtInput1.Text) || String.IsNullOrEmpty(txtInput2.Text))
+                    {
+                        MessageBox.Show("Error: Los campos Media y Desviacion deben tener un valor correcto", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    break;
+                case "Normal - Convolucion":
                     if (String.IsNullOrEmpty(txtInput1.Text) || String.IsNullOrEmpty(txtInput2.Text))
                     {
                         MessageBox.Show("Error: Los campos Media y Desviacion deben tener un valor correcto", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
