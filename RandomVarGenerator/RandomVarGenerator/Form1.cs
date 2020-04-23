@@ -100,10 +100,13 @@ namespace RandomVarGenerator
             if (!ValidateInputs())
                return;
 
-            generatedList.Clear();
-            StringBuilder numbersList = new StringBuilder();
             int subInt = Convert.ToInt32(this.cmbIntervalsQuantity.Text);
             int quantity = Convert.ToInt32(this.txtQuantity.Text);
+
+            Intervalo[] intervals = new Intervalo[subInt];
+            ChiCuadrado chi2 = new ChiCuadrado();
+            generatedList.Clear();
+            StringBuilder numbersList = new StringBuilder();
 
             if ((string)this.cmbDistribution.SelectedItem == "Uniforme")
             {
@@ -118,6 +121,9 @@ namespace RandomVarGenerator
                     generatedList.Add(rnd);
                     numbersList.Append((i + 1) + ")\t" + rnd + Environment.NewLine);
                 }
+                
+                intervals = chi2.getFrequencies(generatedList, subInt);
+                intervals = uniformGenerator.getExpectedFrequencies(this.cmbDistribution.SelectedIndex, intervals, quantity);
             }
 
             else if ((string)this.cmbDistribution.SelectedItem == "Exponencial")
@@ -185,9 +191,7 @@ namespace RandomVarGenerator
 
 
             this.txtGeneratedList.Text = numbersList.ToString();
-            ChiCuadrado chi2 = new ChiCuadrado();
-            Intervalo[] intervals = new Intervalo[subInt];
-            intervals = chi2.getFrequencies(generatedList, subInt);
+            
             GenerateGraphicAndChiTable(intervals);
         }
 
@@ -269,6 +273,7 @@ namespace RandomVarGenerator
                     intervalStr,
                     interval.contador
                     );
+                this.chartFreq.Series["Freq esperada"].Points.Add(interval.expectedCount);
             }
         }
     }

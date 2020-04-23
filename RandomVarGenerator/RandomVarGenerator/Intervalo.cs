@@ -16,6 +16,8 @@ namespace GeneradorDeNumerosAleatorios
         public double LimInf { get => limInf; set => limInf = value; }
         public int contador { get => acumulador; set => acumulador = value; }
 
+        public int expectedCount { get; set; }
+
         public Intervalo(double lI, double lS)
         {
             this.limInf = lI;

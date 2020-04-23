@@ -14,17 +14,15 @@ namespace GeneradorDeNumerosAleatorios
 
         public Intervalo[] getFrequencies(List<double> serie, int k)
         {
-            //if ((serie.Count / k) < 5 && k > 1) k /= 2; //Para distribución uniforme
-
             Intervalo[] intervalos = new Intervalo[k];
-            double acum = (double) serie.Min();
-            double aux = (double) serie.Max() - acum;
+            double acum = serie.Min();
+            double width = (serie.Max() - serie.Min()) / (double)k;
             for (int j = 0; j < k; j++)
             {
                 intervalos[j] = new Intervalo(0, 0);
                 intervalos[j].LimInf = acum;
-                acum += (double) aux/k;
-                intervalos[j].LimSup = acum;                
+                acum += width;
+                intervalos[j].LimSup = acum;
             }
 
             int n = serie.Count;
@@ -40,11 +38,11 @@ namespace GeneradorDeNumerosAleatorios
                     }
                 }
             }
-            
-            return intervalos;
+
+            return intervalos;                                           
         }
 
-        public double calcEstadistico(Intervalo[] intervalos, int n)
+        public double calcEstadistico(Intervalo[] intervalos, int n, int idxDistribution)
         {
             double c = 0;
             double fe = (n / intervalos.Length); //Revisar si la frecuencia esperada debe ser un int o un double
@@ -54,7 +52,7 @@ namespace GeneradorDeNumerosAleatorios
                 c += Math.Pow((fe - interv.contador), 2) / fe;
             }
             c = (Math.Truncate(c * 10000) / 10000);
-            return c;
+            return c;            
         }
 
         public double getCriticalValue(int v)
