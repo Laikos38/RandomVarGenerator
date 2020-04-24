@@ -59,10 +59,7 @@ namespace GeneradorDeNumerosAleatorios
                         intervalos[j].LimSup = acum;
                     }
                 }
-            }
-
-            
-            
+            }        
 
             int n = serie.Count;
 
@@ -87,6 +84,7 @@ namespace GeneradorDeNumerosAleatorios
 
             foreach (Intervalo interv in intervalos)
             {
+                if (interv.expectedCount == 0) interv.expectedCount += 0.0001;
                 c += Math.Pow(interv.expectedCount - interv.contador, 2) / interv.expectedCount;
             }
             c = (Math.Truncate(c * 10000) / 10000);
