@@ -26,5 +26,31 @@ namespace RandomVarGenerator
             } while (p >= a);
             return x;
         }
+
+        public Intervalo[] getExpectedFrequencies(int n, Intervalo[] intervalos)
+        {            
+            foreach(Intervalo interv in intervalos)
+            {
+                double acum = 0;
+                for (double i=interv.LimInf; i<interv.LimSup; i++)
+                {
+                    double freq = Math.Round((Math.Pow(this.lambda, i) * Math.Exp(-this.lambda) / factorial(i))*n, 2);
+                    acum += freq;
+                }
+                interv.expectedCount = acum;
+            }
+
+            return intervalos;
+        }
+
+        public double factorial(double n)
+        {
+            double fact = 1;
+            for (int i = 1; i <= n; i++)
+            {
+                fact *= i;
+            }
+            return fact;
+        }
     }
 }

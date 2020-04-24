@@ -204,6 +204,8 @@ namespace RandomVarGenerator
                     generatedList.Add(poissonRnd);
                     numbersList.Append((i + 1) + ")\t" + poissonRnd + Environment.NewLine);
                 }
+                intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
+                intervals = poissonGenerator.getExpectedFrequencies(quantity, intervals);
             }
 
 

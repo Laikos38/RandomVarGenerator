@@ -20,15 +20,32 @@ namespace GeneradorDeNumerosAleatorios
             }
 
             Intervalo[] intervalos = new Intervalo[k];
-            double acum = serie.Min();
-            double width = (serie.Max() - serie.Min()) / (double)k;
-            for (int j = 0; j < k; j++)
+
+            if (idxDist == 1)
             {
-                intervalos[j] = new Intervalo(0, 0);
-                intervalos[j].LimInf = acum;
-                acum += width;
-                intervalos[j].LimSup = acum;
+                double acum = serie.Min();
+                int width = (int) serie.Max() / k;
+                for (int j = 0; j < k; j++)
+                {
+                    intervalos[j] = new Intervalo(0, 0);
+                    intervalos[j].LimInf = acum;
+                    acum += width;
+                    intervalos[j].LimSup = acum;
+                }
             }
+            else
+            {
+                double acum = serie.Min();
+                double width = (serie.Max() - serie.Min()) / (double)k;
+                for (int j = 0; j < k; j++)
+                {
+                    intervalos[j] = new Intervalo(0, 0);
+                    intervalos[j].LimInf = acum;
+                    acum += width;
+                    intervalos[j].LimSup = acum;
+                }
+            }
+            
 
             int n = serie.Count;
 
