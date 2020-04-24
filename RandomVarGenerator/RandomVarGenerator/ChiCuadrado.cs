@@ -25,6 +25,7 @@ namespace GeneradorDeNumerosAleatorios
             {
                 double acum = serie.Min();
                 int width = (int) serie.Max() / k;
+                if (width == 0) width = 1;
                 for (int j = 0; j < k; j++)
                 {
                     intervalos[j] = new Intervalo(0, 0);
@@ -64,14 +65,13 @@ namespace GeneradorDeNumerosAleatorios
             return intervalos;                                           
         }
 
-        public double calcEstadistico(Intervalo[] intervalos, int n, int idxDistribution)
+        public double calcEstadistico(Intervalo[] intervalos)
         {
             double c = 0;
-            double fe = (n / intervalos.Length); //Revisar si la frecuencia esperada debe ser un int o un double
 
             foreach (Intervalo interv in intervalos)
             {
-                c += Math.Pow((fe - interv.contador), 2) / fe;
+                c += Math.Pow(interv.expectedCount - interv.contador, 2) / interv.expectedCount;
             }
             c = (Math.Truncate(c * 10000) / 10000);
             return c;            

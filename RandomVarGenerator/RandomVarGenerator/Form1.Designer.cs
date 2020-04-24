@@ -32,7 +32,6 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -63,7 +62,7 @@
             this.txtObtainedSChiSum = new System.Windows.Forms.TextBox();
             this.txtTabuledChi = new System.Windows.Forms.TextBox();
             this.lblRta = new System.Windows.Forms.Label();
-            this.txtRtaRandom = new System.Windows.Forms.TextBox();
+            this.txtResChi = new System.Windows.Forms.TextBox();
             this.dgvChi = new System.Windows.Forms.DataGridView();
             this.colIntervals = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colObservableFreq = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -138,13 +137,11 @@
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Freq observada";
-
             series2.ChartArea = "ChartArea1";
             series2.Legend = "Legend1";
             series2.Name = "Freq esperada";
             this.chartFreq.Series.Add(series1);
             this.chartFreq.Series.Add(series2);
-
             this.chartFreq.Size = new System.Drawing.Size(826, 299);
             this.chartFreq.TabIndex = 0;
             this.chartFreq.Text = "chart1";
@@ -285,7 +282,7 @@
             this.txtInput1.Name = "txtInput1";
             this.txtInput1.Size = new System.Drawing.Size(121, 20);
             this.txtInput1.TabIndex = 1;
-            this.txtInput1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowNegativeIntegerNumbers) ;
+            this.txtInput1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowNegativeIntegerNumbers);
             // 
             // txtInput2
             // 
@@ -393,7 +390,7 @@
             this.tabPage2.Controls.Add(this.txtObtainedSChiSum);
             this.tabPage2.Controls.Add(this.txtTabuledChi);
             this.tabPage2.Controls.Add(this.lblRta);
-            this.tabPage2.Controls.Add(this.txtRtaRandom);
+            this.tabPage2.Controls.Add(this.txtResChi);
             this.tabPage2.Controls.Add(this.dgvChi);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -452,15 +449,15 @@
             this.lblRta.TabIndex = 12;
             this.lblRta.Text = "RESULTADO";
             // 
-            // txtRtaRandom
+            // txtResChi
             // 
-            this.txtRtaRandom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtRtaRandom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRtaRandom.Location = new System.Drawing.Point(167, 493);
-            this.txtRtaRandom.Name = "txtRtaRandom";
-            this.txtRtaRandom.ReadOnly = true;
-            this.txtRtaRandom.Size = new System.Drawing.Size(162, 20);
-            this.txtRtaRandom.TabIndex = 11;
+            this.txtResChi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtResChi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResChi.Location = new System.Drawing.Point(167, 493);
+            this.txtResChi.Name = "txtResChi";
+            this.txtResChi.ReadOnly = true;
+            this.txtResChi.Size = new System.Drawing.Size(162, 20);
+            this.txtResChi.TabIndex = 11;
             // 
             // dgvChi
             // 
@@ -573,7 +570,7 @@
         private System.Windows.Forms.TextBox txtObtainedSChiSum;
         private System.Windows.Forms.TextBox txtTabuledChi;
         private System.Windows.Forms.Label lblRta;
-        private System.Windows.Forms.TextBox txtRtaRandom;
+        private System.Windows.Forms.TextBox txtResChi;
         private System.Windows.Forms.DataGridView dgvChi;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIntervals;
         private System.Windows.Forms.DataGridViewTextBoxColumn colObservableFreq;

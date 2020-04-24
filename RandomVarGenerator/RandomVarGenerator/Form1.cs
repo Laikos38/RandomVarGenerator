@@ -95,10 +95,14 @@ namespace RandomVarGenerator
             this.txtInput1.Text = "";
             this.txtInput2.Text = "";
             this.txtLambda.Text = "";
+            this.txtResChi.Text = "";
+            this.txtTabuledChi.Text = "";
+            this.txtObtainedSChiSum.Text = "";
             this.cmbDistribution.SelectedIndex = 0;
             this.cmbIntervalsQuantity.SelectedIndex = 0;
             this.chartFreq.Series["Freq observada"].Points.Clear();
             this.chartFreq.Series["Freq esperada"].Points.Clear();
+            this.dgvChi.Rows.Clear();
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -108,6 +112,7 @@ namespace RandomVarGenerator
 
             this.chartFreq.Series["Freq observada"].Points.Clear();
             this.chartFreq.Series["Freq esperada"].Points.Clear();
+            this.dgvChi.Rows.Clear();
 
             int subInt = Convert.ToInt32(this.cmbIntervalsQuantity.Text);
             int quantity = Convert.ToInt32(this.txtQuantity.Text);
@@ -133,6 +138,8 @@ namespace RandomVarGenerator
                 
                 intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
                 intervals = uniformGenerator.getExpectedFrequencies(intervals, quantity);
+                int v = intervals.Length - 1;
+                this.testChi(chi2, intervals, v);
             }
 
             else if ((string)this.cmbDistribution.SelectedItem == "Exponencial")
@@ -149,6 +156,8 @@ namespace RandomVarGenerator
 
                 intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
                 intervals = exponentialGenerator.getExpectedFrequencies(intervals, quantity);
+                int v = intervals.Length - 2;
+                this.testChi(chi2, intervals, v);
             }
 
             else if ((string)this.cmbDistribution.SelectedItem == "Normal - Box Muller")
@@ -175,6 +184,8 @@ namespace RandomVarGenerator
 
                 intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
                 intervals = boxMullerGenerator.getExpectedFrequencies(quantity, intervals);
+                int v = intervals.Length - 3;
+                this.testChi(chi2, intervals, v);
             }
 
             else if ((string)this.cmbDistribution.SelectedItem == "Normal - Convolucion")
@@ -193,7 +204,10 @@ namespace RandomVarGenerator
 
                 intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
                 intervals = convolutionGenerator.getExpectedFrequencies(quantity, intervals);
+                int v = intervals.Length - 3;
+                this.testChi(chi2, intervals, v);
             }
+
             else if ((string)this.cmbDistribution.SelectedItem == "Poisson")
             {
                 double lambda = Convert.ToDouble(this.txtLambda.Text);
@@ -206,6 +220,8 @@ namespace RandomVarGenerator
                 }
                 intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
                 intervals = poissonGenerator.getExpectedFrequencies(quantity, intervals);
+                int v = intervals.Length - 2;
+                this.testChi(chi2, intervals, v);
             }
 
 
@@ -307,6 +323,18 @@ namespace RandomVarGenerator
                     sum
                     );
             }
+        }
+
+        private void testChi(ChiCuadrado chi, Intervalo[] intervalos, int v)
+        {
+            double cCalc = chi.calcEstadistico(intervalos);
+            double cTab = chi.getCriticalValue(v);
+
+            this.txtObtainedSChiSum.Text = cCalc.ToString();
+            this.txtTabuledChi.Text = cTab.ToString();
+
+            if (cCalc < cTab) this.txtResChi.Text = "No se rechaza la hipótesis nula";
+            else this.txtResChi.Text = " Se rechaza la hipótesis nula";
         }
     }
 }
