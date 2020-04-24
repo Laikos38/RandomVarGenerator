@@ -98,6 +98,7 @@ namespace RandomVarGenerator
             this.cmbDistribution.SelectedIndex = 0;
             this.cmbIntervalsQuantity.SelectedIndex = 0;
             this.chartFreq.Series["Freq observada"].Points.Clear();
+            this.chartFreq.Series["Freq esperada"].Points.Clear();
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -105,10 +106,16 @@ namespace RandomVarGenerator
             if (!ValidateInputs())
                return;
 
-            generatedList.Clear();
-            StringBuilder numbersList = new StringBuilder();
+            this.chartFreq.Series["Freq observada"].Points.Clear();
+            this.chartFreq.Series["Freq esperada"].Points.Clear();
+
             int subInt = Convert.ToInt32(this.cmbIntervalsQuantity.Text);
             int quantity = Convert.ToInt32(this.txtQuantity.Text);
+
+            Intervalo[] intervals = new Intervalo[subInt];
+            ChiCuadrado chi2 = new ChiCuadrado();
+            generatedList.Clear();
+            StringBuilder numbersList = new StringBuilder();
 
             if ((string)this.cmbDistribution.SelectedItem == "Uniforme")
             {
@@ -123,6 +130,9 @@ namespace RandomVarGenerator
                     generatedList.Add(rnd);
                     numbersList.Append((i + 1) + ")\t" + rnd + Environment.NewLine);
                 }
+                
+                intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
+                intervals = uniformGenerator.getExpectedFrequencies(intervals, quantity);
             }
 
             else if ((string)this.cmbDistribution.SelectedItem == "Exponencial")
@@ -136,6 +146,9 @@ namespace RandomVarGenerator
                     generatedList.Add(expRnd);
                     numbersList.Append((i + 1) + ")\t" + expRnd + Environment.NewLine);
                 }
+
+                intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
+                intervals = exponentialGenerator.getExpectedFrequencies(intervals, quantity);
             }
 
             else if ((string)this.cmbDistribution.SelectedItem == "Normal - Box Muller")
@@ -159,6 +172,9 @@ namespace RandomVarGenerator
                         numbersList.Append((i + 1) + ")\t" + boxRnd[1] + Environment.NewLine);
                     }
                 }
+
+                intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
+                intervals = boxMullerGenerator.getExpectedFrequencies(quantity, intervals);
             }
 
             else if ((string)this.cmbDistribution.SelectedItem == "Normal - Convolucion")
@@ -174,6 +190,9 @@ namespace RandomVarGenerator
                     generatedList.Add(convRnd);
                     numbersList.Append((i + 1) + ")\t" + convRnd + Environment.NewLine);
                 }
+
+                intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
+                intervals = convolutionGenerator.getExpectedFrequencies(quantity, intervals);
             }
             else if ((string)this.cmbDistribution.SelectedItem == "Poisson")
             {
@@ -185,14 +204,13 @@ namespace RandomVarGenerator
                     generatedList.Add(poissonRnd);
                     numbersList.Append((i + 1) + ")\t" + poissonRnd + Environment.NewLine);
                 }
-
+                intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
+                intervals = poissonGenerator.getExpectedFrequencies(quantity, intervals);
             }
 
 
             this.txtGeneratedList.Text = numbersList.ToString();
-            ChiCuadrado chi2 = new ChiCuadrado();
-            Intervalo[] intervals = new Intervalo[subInt];
-            intervals = chi2.getFrequencies(generatedList, subInt);
+            
             GenerateGraphicAndChiTable(intervals);
         }
 
@@ -266,13 +284,27 @@ namespace RandomVarGenerator
         private void GenerateGraphicAndChiTable(Intervalo[] intervals)
         {
             this.chartFreq.Series["Freq observada"].Points.Clear();
+            double sum = 0;
+
             foreach (Intervalo interval in intervals)
             {
+                double col4 = Math.Round(Math.Pow(interval.contador - interval.expectedCount, 2), 4);
+                double col5 = Math.Round(col4 / interval.expectedCount, 4);
+                sum += col5;
                 string intervalStr = interval.ToString();
                 // Agrego points de grafico de frecuencia observada
                 this.chartFreq.Series["Freq observada"].Points.AddXY(
                     intervalStr,
                     interval.contador
+                    );
+                this.chartFreq.Series["Freq esperada"].Points.Add(interval.expectedCount);
+                this.dgvChi.Rows.Add(
+                    intervalStr,
+                    interval.contador,
+                    interval.expectedCount,
+                    col4,
+                    col5,
+                    sum
                     );
             }
         }

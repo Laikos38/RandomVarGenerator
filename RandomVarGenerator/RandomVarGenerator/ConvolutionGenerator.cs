@@ -26,5 +26,17 @@ namespace RandomVarGenerator
 
             return rnd;
         }
+
+        public Intervalo[] getExpectedFrequencies(int n, Intervalo[] intervalos)
+        {
+            foreach (Intervalo interv in intervalos)
+            {
+                double classMark = interv.getClassMark();
+
+                interv.expectedCount = Math.Round(n * Math.Exp(-0.5 * Math.Pow((classMark - this.mean) / this.stDeviation, 2)) / (this.stDeviation * Math.Sqrt(2 * Math.PI)) * interv.getWidth());
+            }
+
+            return intervalos;
+        }
     }
 }

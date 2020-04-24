@@ -10,11 +10,13 @@ namespace GeneradorDeNumerosAleatorios
     {
         double limSup = 0;
         double limInf = 0;
-        int acumulador;
+        double acumulador;
 
         public double LimSup { get => limSup; set => limSup = value; }
         public double LimInf { get => limInf; set => limInf = value; }
-        public int contador { get => acumulador; set => acumulador = value; }
+        public double contador { get => acumulador; set => acumulador = value; }
+
+        public double expectedCount { get; set; }
 
         public Intervalo(double lI, double lS)
         {
@@ -24,7 +26,17 @@ namespace GeneradorDeNumerosAleatorios
 
         public bool belongsToMe(double num)
         {
-            return (LimInf <= num) && (num <= LimSup);
+            return (LimInf <= num) && (num < LimSup);
+        }
+
+        public double getClassMark()
+        {
+            return ((this.LimSup + this.LimInf) / 2);
+        }
+
+        public double getWidth()
+        {
+            return Math.Abs(this.LimSup - this.LimInf);
         }
 
         public override string ToString()

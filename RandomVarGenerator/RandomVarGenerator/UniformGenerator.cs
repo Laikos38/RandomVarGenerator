@@ -19,5 +19,13 @@ namespace RandomVarGenerator
             double rnd = a + congruentialGenerator.NextRnd() * (b - a);
             return rnd;
         }
+        public Intervalo[] getExpectedFrequencies(Intervalo[] intervalos, int n)
+        {
+            double freq = n / intervalos.Length;
+
+            foreach (Intervalo interv in intervalos) interv.expectedCount = freq;
+            return intervalos;
+
+        }
     }
 }
