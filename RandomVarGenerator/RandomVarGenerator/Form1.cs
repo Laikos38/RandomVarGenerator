@@ -300,6 +300,7 @@ namespace RandomVarGenerator
         private void GenerateGraphicAndChiTable(Intervalo[] intervals)
         {
             this.chartFreq.Series["Freq observada"].Points.Clear();
+            this.chartFreq.Series["Freq esperada"].Points.Clear();
             double sum = 0;
 
             foreach (Intervalo interval in intervals)
