@@ -12,20 +12,17 @@ namespace GeneradorDeNumerosAleatorios
         {
         }
 
-        public Intervalo[] getFrequencies(List<double> serie, int k, int idxDist)
+        public Intervalo[] getFrequencies(List<double> serie, int k, int idxDist, double a = 0, double b = 0)
         {
-            if (idxDist == 0)
-            {
-               while ((serie.Count / k) < 5 && k > 1) k /= 2;
-            }
 
             Intervalo[] intervalos = new Intervalo[k];
 
-            if (idxDist == 1)
+            if (idxDist == 0)
             {
-                double acum = serie.Min();
-                int width = (int) serie.Max() / k;
-                if (width == 0) width = 1;
+               while ((serie.Count / k) < 5 && k > 1) k /= 2;
+
+                double acum = a;
+                double width = (b - a) / (double)k;
                 for (int j = 0; j < k; j++)
                 {
                     intervalos[j] = new Intervalo(0, 0);
@@ -34,18 +31,37 @@ namespace GeneradorDeNumerosAleatorios
                     intervalos[j].LimSup = acum;
                 }
             }
+
             else
             {
-                double acum = serie.Min();
-                double width = (serie.Max() - serie.Min()) / (double)k;
-                for (int j = 0; j < k; j++)
+                if (idxDist == 1)
                 {
-                    intervalos[j] = new Intervalo(0, 0);
-                    intervalos[j].LimInf = acum;
-                    acum += width;
-                    intervalos[j].LimSup = acum;
+                    double acum = serie.Min();
+                    int width = (int)serie.Max() / k;
+                    if (width == 0) width = 1;
+                    for (int j = 0; j < k; j++)
+                    {
+                        intervalos[j] = new Intervalo(0, 0);
+                        intervalos[j].LimInf = acum;
+                        acum += width;
+                        intervalos[j].LimSup = acum;
+                    }
+                }
+                else
+                {
+                    double acum = serie.Min();
+                    double width = (serie.Max() - serie.Min()) / (double)k;
+                    for (int j = 0; j < k; j++)
+                    {
+                        intervalos[j] = new Intervalo(0, 0);
+                        intervalos[j].LimInf = acum;
+                        acum += width;
+                        intervalos[j].LimSup = acum;
+                    }
                 }
             }
+
+            
             
 
             int n = serie.Count;
