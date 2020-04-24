@@ -33,7 +33,7 @@ namespace RandomVarGenerator
             {
                 double classMark = interv.getClassMark();
 
-                interv.expectedCount = Math.Round(n * Math.Exp(-0.5 * Math.Pow((classMark - this.mean) / this.stDeviation, 2)) / (this.stDeviation * Math.Sqrt(2 * Math.PI)) * interv.getWidth());
+                interv.expectedCount = n * Math.Exp(-0.5 * Math.Pow((classMark - this.mean) / this.stDeviation, 2)) / (this.stDeviation * Math.Sqrt(2 * Math.PI)) * interv.getWidth();
             }
 
             return intervalos;
