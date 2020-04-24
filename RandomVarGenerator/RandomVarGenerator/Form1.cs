@@ -136,7 +136,7 @@ namespace RandomVarGenerator
                     numbersList.Append((i + 1) + ")\t" + rnd + Environment.NewLine);
                 }
                 
-                intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex);
+                intervals = chi2.getFrequencies(generatedList, subInt, this.cmbDistribution.SelectedIndex, a, b);
                 intervals = uniformGenerator.getExpectedFrequencies(intervals, quantity);
                 int v = intervals.Length - 1;
                 this.testChi(chi2, intervals, v);
