@@ -112,6 +112,7 @@ namespace RandomVarGenerator
 
             this.chartFreq.Series["Freq observada"].Points.Clear();
             this.chartFreq.Series["Freq esperada"].Points.Clear();
+            this.dgvChi.Rows.Clear();
 
             int subInt = Convert.ToInt32(this.cmbIntervalsQuantity.Text);
             int quantity = Convert.ToInt32(this.txtQuantity.Text);

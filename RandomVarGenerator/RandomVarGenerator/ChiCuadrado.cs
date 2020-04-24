@@ -25,6 +25,7 @@ namespace GeneradorDeNumerosAleatorios
             {
                 double acum = serie.Min();
                 int width = (int) serie.Max() / k;
+                if (width == 0) width = 1;
                 for (int j = 0; j < k; j++)
                 {
                     intervalos[j] = new Intervalo(0, 0);
